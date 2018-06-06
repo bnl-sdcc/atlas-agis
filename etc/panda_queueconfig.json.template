@@ -1,0 +1,41 @@
+PQ_NAME": {
+  "prodSourceLabel": "managed",
+  "nQueueLimitJob": 3,
+  "nQueueLimitWorker": 5,
+  "maxWorkers": 5,
+  “mapType”: “OneToOne”,
+  "preparator": {
+     "name": "DummyPreparator",
+     "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+  },
+  "submitter": {
+     "name": "DummySingletonSubmitter",
+     "module": "pandaharvester.harvestersubmitter.dummy_singleton_submitter",
+     "logBaseURL": "/tmp/tmaeno/logs"
+              },
+              "throttler": {
+                      "name": "SimpleThrottler",
+                      "module": "pandaharvester.harvesterthrottler.simple_throttler",
+                      "rulesForMissed": [{"level": "pq", "timeWindow": 10, "maxMissed": 10},
+                                         {"level": "ce", "timeWindow": 10, "maxMissed": 5}]
+  },
+  "workerMaker": {
+     "name": "SimpleWorkerMaker",
+     "module": "pandaharvester.harvesterworkermaker.simple_worker_maker"
+  },
+  "messenger": {
+     "name": "SharedFileMessenger",
+     "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+     "accessPoint": "/tmp/tmaeno/workdir/panda/${workerID}"
+  },
+  "stager": {
+     "name": "DummyStager",
+     "module": "pandaharvester.harvesterstager.dummy_stager"
+  },
+  "monitor": {
+     "name": "DummyMonitor",
+     "module": "pandaharvester.harvestermonitor.dummy_monitor"
+  },
+  "sweeper": {
+     "name": "DummySweeper",
+     "module": "pandaharvester.harvestersweeper.dummy_sweeper"
